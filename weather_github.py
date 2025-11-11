@@ -39,7 +39,7 @@ def date_format(date): # changing date format to suit the MET search
     return date.replace(second=0, microsecond=0, minute=0).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]+'Z'
 
 def new_frost_key(): # creating a frost key from a email address and returning it
-    params = {'email': 'pranjal.mandhaniya@ntnu.no'}
+    params = {'email': 'testemail'}
     r = requests.get('https://frost.met.no/auth/requestCredentials.html', params=params)
     html = str(r.text)
     soup = BeautifulSoup(html, "lxml")
@@ -97,4 +97,5 @@ def nearness_matrix(ref_loc_name, all_loc=dict()):
     ref_loc = all_loc[ref_loc_name]
     for k,v in all_loc.items():
         all_loc[k] = math.sqrt(pow((ref_loc[0]-v[0]),2) + pow((ref_loc[1]-v[1]),2))
+
     return all_loc
