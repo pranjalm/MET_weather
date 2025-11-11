@@ -38,13 +38,6 @@ pio.renderers.default='browser'
 def date_format(date): # changing date format to suit the MET search
     return date.replace(second=0, microsecond=0, minute=0).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]+'Z'
 
-def new_frost_key(): # creating a frost key from a email address and returning it
-    params = {'email': 'testemail'}
-    r = requests.get('https://frost.met.no/auth/requestCredentials.html', params=params)
-    html = str(r.text)
-    soup = BeautifulSoup(html, "lxml")
-    item = soup.select_one("code[id='key']").text
-    return item
     
 def geolocation(search_term): # Get the geolocation of stations (or any location)
     parameters = { 'text': search_term+' Stasjon', 'lang': 'en', 'boundary.country':'NO'} 
@@ -99,3 +92,4 @@ def nearness_matrix(ref_loc_name, all_loc=dict()):
         all_loc[k] = math.sqrt(pow((ref_loc[0]-v[0]),2) + pow((ref_loc[1]-v[1]),2))
 
     return all_loc
+
